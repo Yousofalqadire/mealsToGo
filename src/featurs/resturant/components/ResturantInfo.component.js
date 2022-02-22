@@ -3,6 +3,7 @@ import { Card } from "react-native-paper";
 import styled from "styled-components/native";
 import { Text, View, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Spacer } from "../../../component/Spacer.component";
 // import { SvgXml } from "react-native-svg";
 // import { open } from "../../../../assets/open";
 // import { star } from "../../../../assets/star";
@@ -35,17 +36,14 @@ const Rating = styled(View)`
   width: auto;
   align-items: flex-start;
 `;
-const Open = styled(View)`
+const SectionEnd = styled(View)`
   flex: 1;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[3]};
-  flex-grow: 1;
-  width: auto;
+  flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
 `;
 const Section = styled(View)`
   flex-direction: row;
+  justify-content: center;
 `;
 
 export const ResturantInfo = ({ resturant = {} }) => {
@@ -58,7 +56,7 @@ export const ResturantInfo = ({ resturant = {} }) => {
     ],
     isOpenNow = true,
     raiting = 4,
-    isCloasedTemp,
+    isCloasedTemp = true,
   } = resturant;
   const ratingArry = Array.from(new Array(Math.floor(raiting)));
   return (
@@ -67,10 +65,12 @@ export const ResturantInfo = ({ resturant = {} }) => {
       <Info>
         <Title>{name}</Title>
         <Section>
-          <Open>
-            {isCloasedTemp && <Text>closed now</Text>}
+          <SectionEnd>
+            <Spacer position="left" size="large" />
             {isOpenNow && <Icon name="tags" size={25} color="red" />}
-          </Open>
+            <Spacer position="left" size="large" />
+            {isCloasedTemp && <Text style={styles.text}>closed now</Text>}
+          </SectionEnd>
           <Rating>
             {ratingArry.map((item, i) => (
               <Icon key={i} name="star" color="#EE9B00" size={20} />
@@ -82,12 +82,8 @@ export const ResturantInfo = ({ resturant = {} }) => {
     </ResturantCard>
   );
 };
-// const styles = StyleSheet.create({
-//   cover: {
-//     padding: 20,
-//   },
-//   card: {
-//     backgroundColor: "#fff",
-//     alignItems: "flex-end",
-//   },
-// });
+const styles = StyleSheet.create({
+  text: {
+    color: "red",
+  },
+});
