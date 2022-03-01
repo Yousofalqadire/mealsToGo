@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 import React from "react";
-import { View, SafeAreaView, StatusBar } from "react-native";
+import { View, SafeAreaView, StatusBar, FlatList, StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { ResturantInfo } from "../components/ResturantInfo.component";
 import styled from "styled-components/native";
@@ -15,20 +16,38 @@ const SearchBarConatiner = styled(View)`
 const SearchBar = styled(Searchbar)`
   padding: ${(props) => props.theme.space[2]};
 `;
-const ResturantContainer = styled(View)`
-  flex: 1;
-  background-color: white;
-  padding: ${(props) => props.theme.space[3]};
-`;
+const ResturnatList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 8,
+  },
+})``;
+
 export const ResturantScreen = () => (
   <SafAerea>
     <>
       <SearchBarConatiner>
         <SearchBar />
       </SearchBarConatiner>
-      <ResturantContainer>
-        <ResturantInfo />
-      </ResturantContainer>
+      <ResturnatList
+        data={[
+          { name: 1 },
+          { name: 2 },
+          { name: 3 },
+          { name: 4 },
+          { name: 5 },
+          { name: 6 },
+          { name: 7 },
+          { name: 8 },
+        ]}
+        renderItem={() => <ResturantInfo />}
+        keyExtractor={(item) => item.name}
+        contentContainerStyle={styles.listContainer}
+      />
     </>
   </SafAerea>
 );
+ const styles = StyleSheet.create({
+   listContainer:{
+     padding: 8,
+   },
+ });
