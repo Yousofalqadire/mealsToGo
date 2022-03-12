@@ -29,7 +29,7 @@ const Rating = styled(View)`
   flex-direction: row;
   padding-top: ${(props) => props.theme.space[2]};
   padding-bottom: ${(props) => props.theme.space[3]};
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex: 1;
   flex-grow: 1;
   width: auto;
@@ -68,21 +68,22 @@ export const ResturantInfo = ({ resturant = {} }) => {
       <Info>
         <Lable>{name}</Lable>
         <Section>
-          <SectionEnd>
-            <Spacer position="left" size="large" />
-            <Brand source={{ uri: icon }} />
-            <Spacer position="left" size="large" />
-            {isOpenNow && <Icon name="tags" size={25} color="red" />}
-            <Spacer position="left" size="large" />
-            {isCloasedTemp && (
-              <DangerText variant="error">closed now</DangerText>
-            )}
-          </SectionEnd>
           <Rating>
             {ratingArry.map((item, i) => (
               <Icon key={i} name="star" color="#EE9B00" size={20} />
             ))}
           </Rating>
+          <Spacer position="left" size="large" />
+
+          <SectionEnd>
+            {isCloasedTemp && (
+              <DangerText variant="error">closed now</DangerText>
+            )}
+            <Spacer position="left" size="large" />
+            <Brand source={{ uri: icon }} />
+            <Spacer position="left" size="large" />
+            {isOpenNow && <Icon name="tags" size={25} color="red" />}
+          </SectionEnd>
         </Section>
         <Caption>{address}</Caption>
       </Info>
