@@ -1,10 +1,17 @@
 /* eslint-disable prettier/prettier */
-import React from "react";
+import React, { useContext } from "react";
 import { View, SafeAreaView, StatusBar, FlatList, StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { ResturantInfo } from "../components/ResturantInfo.component";
 import styled from "styled-components/native";
+import { ResturnatContext } from "../../../services/resturant/resturant.context";
+import { ActivityIndicator, Colors } from "react-native-paper";
 
+const Indecator = styled.View`
+ position: absolute;
+ top : 50%;
+ left: 50%;
+`;
 const SafAerea = styled(SafeAreaView)`
   flex: 1;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
@@ -22,30 +29,37 @@ const ResturnatList = styled(FlatList).attrs({
   },
 })``;
 
-export const ResturantScreen = () => (
+export const ResturantScreen = () => {
+  const { resturants, isLoading, error} = useContext(ResturnatContext);
+  return (
   <SafAerea>
+    {isLoading && (
+     <Indecator>
+        <ActivityIndicator
+       size={50}
+      animating={true}
+      color = {Colors.blue300}
+      style={{ marginLeft: -25 }}
+      />
+     </Indecator>
+    )}
     <>
       <SearchBarConatiner>
         <SearchBar />
       </SearchBarConatiner>
       <ResturnatList
-        data={[
-          { name: 1 },
-          { name: 2 },
-          { name: 3 },
-          { name: 4 },
-          { name: 5 },
-          { name: 6 },
-          { name: 7 },
-          { name: 8 },
-        ]}
-        renderItem={() => <ResturantInfo />}
+        data={resturants}
+        renderItem={({ item}) => {
+           return (
+        <ResturantInfo resturant={item} />
+        );}}
         keyExtractor={(item) => item.name}
         contentContainerStyle={styles.listContainer}
       />
     </>
   </SafAerea>
-);
+  );
+};
  const styles = StyleSheet.create({
    listContainer:{
      padding: 8,
