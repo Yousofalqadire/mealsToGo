@@ -14,6 +14,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { ResturantContextProvider } from "./src/services/resturant/resturant.context";
+import { LoacationContextProvider } from "./src/services/location/location.context";
 const Tab = createBottomTabNavigator();
 const SafArea = styled(SafeAreaView)`
   flex: 1;
@@ -42,33 +43,37 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <ResturantContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, size }) => {
-                  let iconName;
-                  if (route.name === "Resturant") {
-                    iconName = "md-restaurant";
-                  } else if (route.name === "Settings") {
-                    iconName = "md-settings";
-                  } else if (route.name === "Map") {
-                    iconName = "md-map";
-                  }
-                  return <Ionicons name={iconName} size={size} color={color} />;
-                },
-              })}
-              tabBarOptions={{
-                activeTintColor: "tomato",
-                inactiveTintColor: "gray",
-              }}
-            >
-              <Tab.Screen name="Settings" component={Settings} />
-              <Tab.Screen name="Map" component={Map} />
-              <Tab.Screen name="Resturant" component={ResturantScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </ResturantContextProvider>
+        <LoacationContextProvider>
+          <ResturantContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={({ route }) => ({
+                  tabBarIcon: ({ color, size }) => {
+                    let iconName;
+                    if (route.name === "Resturant") {
+                      iconName = "md-restaurant";
+                    } else if (route.name === "Settings") {
+                      iconName = "md-settings";
+                    } else if (route.name === "Map") {
+                      iconName = "md-map";
+                    }
+                    return (
+                      <Ionicons name={iconName} size={size} color={color} />
+                    );
+                  },
+                })}
+                tabBarOptions={{
+                  activeTintColor: "tomato",
+                  inactiveTintColor: "gray",
+                }}
+              >
+                <Tab.Screen name="Settings" component={Settings} />
+                <Tab.Screen name="Map" component={Map} />
+                <Tab.Screen name="Resturant" component={ResturantScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </ResturantContextProvider>
+        </LoacationContextProvider>
       </ThemeProvider>
       <ExpoStausBar />
     </>

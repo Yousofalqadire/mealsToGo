@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { useContext } from "react";
 import { View, SafeAreaView, StatusBar, FlatList, StyleSheet } from "react-native";
-import { Searchbar } from "react-native-paper";
 import { ResturantInfo } from "../components/ResturantInfo.component";
 import styled from "styled-components/native";
 import { ResturnatContext } from "../../../services/resturant/resturant.context";
 import { ActivityIndicator, Colors } from "react-native-paper";
+import { Search } from "../components/Search.component";
 
 const Indecator = styled.View`
  position: absolute;
@@ -17,12 +17,7 @@ const SafAerea = styled(SafeAreaView)`
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
 
-const SearchBarConatiner = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
-const SearchBar = styled(Searchbar)`
-  padding: ${(props) => props.theme.space[2]};
-`;
+
 const ResturnatList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 8,
@@ -44,9 +39,7 @@ export const ResturantScreen = () => {
      </Indecator>
     )}
     <>
-      <SearchBarConatiner>
-        <SearchBar />
-      </SearchBarConatiner>
+     <Search />
       <ResturnatList
         data={resturants}
         renderItem={({ item}) => {
