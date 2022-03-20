@@ -60,6 +60,7 @@ export const ResturantInfo = ({ resturant = {} }) => {
     isOpenNow = true,
     raiting = 4,
     isCloasedTemp = true,
+    placeId,
   } = resturant;
   const ratingArry = Array.from(new Array(Math.floor(raiting)));
   return (
@@ -70,7 +71,12 @@ export const ResturantInfo = ({ resturant = {} }) => {
         <Section>
           <Rating>
             {ratingArry.map((item, i) => (
-              <Icon key={i} name="star" color="#EE9B00" size={20} />
+              <Icon
+                key={`star-${placeId}-${i}`}
+                name="star"
+                color="#EE9B00"
+                size={20}
+              />
             ))}
           </Rating>
           <Spacer position="left" size="large" />
