@@ -25,7 +25,7 @@ const ResturnatList = styled(FlatList).attrs({
 })``;
 
 export const ResturantScreen = ({navigation}) => {
-  const { resturants, isLoading, error} = useContext(ResturnatContext);
+  const { resturants, isLoading} = useContext(ResturnatContext);
   return (
   <SafAerea>
     {isLoading && (
@@ -34,6 +34,7 @@ export const ResturantScreen = ({navigation}) => {
        size={50}
       animating={true}
       color = {Colors.blue300}
+      // eslint-disable-next-line react-native/no-inline-styles
       style={{ marginLeft: -25 }}
       />
      </Indecator>
