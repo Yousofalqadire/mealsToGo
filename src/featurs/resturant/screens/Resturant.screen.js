@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useContext } from "react";
-import { View, SafeAreaView, StatusBar, FlatList, StyleSheet } from "react-native";
+import { TouchableOpacity, SafeAreaView, StatusBar, FlatList, StyleSheet } from "react-native";
 import { ResturantInfo } from "../components/ResturantInfo.component";
 import styled from "styled-components/native";
 import { ResturnatContext } from "../../../services/resturant/resturant.context";
@@ -24,7 +24,7 @@ const ResturnatList = styled(FlatList).attrs({
   },
 })``;
 
-export const ResturantScreen = () => {
+export const ResturantScreen = ({navigation}) => {
   const { resturants, isLoading, error} = useContext(ResturnatContext);
   return (
   <SafAerea>
@@ -44,7 +44,10 @@ export const ResturantScreen = () => {
         data={resturants}
         renderItem={({ item}) => {
            return (
+             <TouchableOpacity onPress={() => navigation.navigate("ResturantDetails",
+             {resturant: item})}>
         <ResturantInfo resturant={item} />
+        </TouchableOpacity>
         );}}
         keyExtractor={(item) => item.name}
         contentContainerStyle={styles.listContainer}
