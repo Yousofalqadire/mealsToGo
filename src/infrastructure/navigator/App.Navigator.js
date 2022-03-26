@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { ResturantsNavigator } from "./Resturants.Navigator";
+import { MapScreen } from "../../featurs/map/Map.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,11 +13,7 @@ const SafArea = styled(SafeAreaView)`
   flex: 1;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
-export const Map = () => (
-  <SafArea>
-    <Text>Map </Text>
-  </SafArea>
-);
+
 export const Settings = () => (
   <SafArea>
     <Text>Settings</Text>
@@ -45,7 +42,7 @@ export const AppNavigator = () => {
         }}
       >
         <Tab.Screen name="Settings" component={Settings} />
-        <Tab.Screen name="Map" component={Map} />
+        <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Resturant" component={ResturantsNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
